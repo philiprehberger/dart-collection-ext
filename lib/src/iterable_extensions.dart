@@ -62,7 +62,7 @@ extension IterableExt<T> on Iterable<T> {
   /// Find the element with the minimum value by a key function.
   ///
   /// Returns `null` if the iterable is empty.
-  T? minBy<K extends Comparable<K>>(K Function(T) key) {
+  T? minBy<K extends Comparable<dynamic>>(K Function(T) key) {
     T? result;
     K? minKey;
     for (final element in this) {
@@ -78,7 +78,7 @@ extension IterableExt<T> on Iterable<T> {
   /// Find the element with the maximum value by a key function.
   ///
   /// Returns `null` if the iterable is empty.
-  T? maxBy<K extends Comparable<K>>(K Function(T) key) {
+  T? maxBy<K extends Comparable<dynamic>>(K Function(T) key) {
     T? result;
     K? maxKey;
     for (final element in this) {
@@ -122,7 +122,7 @@ extension IterableExt<T> on Iterable<T> {
   /// ['banana', 'apple', 'cherry'].sortedBy((s) => s.length)
   /// // => ['apple', 'banana', 'cherry']
   /// ```
-  List<T> sortedBy<K extends Comparable<K>>(K Function(T) key) {
+  List<T> sortedBy<K extends Comparable<dynamic>>(K Function(T) key) {
     final list = toList();
     list.sort((a, b) => key(a).compareTo(key(b)));
     return list;
