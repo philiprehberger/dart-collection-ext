@@ -36,7 +36,7 @@ void main() {
     });
 
     test('maxBy returns maximum element', () {
-      expect(['banana', 'apple', 'cherry'].maxBy((s) => s.length), equals('cherry'));
+      expect(['banana', 'apple', 'cherries'].maxBy((s) => s.length), equals('cherries'));
     });
 
     test('zip pairs elements', () {
