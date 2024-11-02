@@ -1,7 +1,7 @@
 name: philiprehberger_collection_ext
 description: >-
   Iterable and Map extensions for groupBy, chunk, zip, distinct, and more
-version: 0.1.0
+version: 0.1.1
 homepage: https://philiprehberger.com/open-source-packages/dart/philiprehberger_collection_ext
 repository: https://github.com/philiprehberger/dart-collection-ext
 issue_tracker: https://github.com/philiprehberger/dart-collection-ext/issues
