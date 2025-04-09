@@ -29,4 +29,10 @@ extension MapExt<K, V> on Map<K, V> {
   Map<K2, V> mapKeys<K2>(K2 Function(K) transform) {
     return Map.fromEntries(entries.map((e) => MapEntry(transform(e.key), e.value)));
   }
+
+  /// Returns a new map with all values transformed by [transform],
+  /// keeping the original keys.
+  Map<K, V2> mapValues<V2>(V2 Function(V) transform) {
+    return map((key, value) => MapEntry(key, transform(value)));
+  }
 }

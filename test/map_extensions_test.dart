@@ -22,4 +22,21 @@ void main() {
       expect(<String, int>{}.filterKeys((_) => true), isEmpty);
     });
   });
+
+  group('mapValues', () {
+    test('transforms values', () {
+      final result = {'a': 1, 'b': 2}.mapValues((v) => v * 10);
+      expect(result, equals({'a': 10, 'b': 20}));
+    });
+
+    test('empty map returns empty map', () {
+      final result = <String, int>{}.mapValues((v) => v.toString());
+      expect(result, isEmpty);
+    });
+
+    test('can change value type', () {
+      final result = {'a': 1, 'b': 2}.mapValues((v) => '$v!');
+      expect(result, equals({'a': '1!', 'b': '2!'}));
+    });
+  });
 }

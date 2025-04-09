@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-04
+
+### Added
+- `partition()` to split iterables into two lists based on a predicate
+- `intersperse()` to insert a separator between elements
+- `sliding()` for overlapping window iteration with configurable step
+- `sumBy()` for numeric summation by selector
+- `averageBy()` for numeric averaging by selector
+- `mapValues()` map extension to transform values while keeping keys
+
 ## [0.1.1] - 2026-04-03
 
 ### Fixed

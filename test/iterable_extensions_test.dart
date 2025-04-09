@@ -64,4 +64,93 @@ void main() {
       expect(original, equals(['banana', 'apple', 'cherry'])); // original unchanged
     });
   });
+
+  group('partition', () {
+    test('splits by predicate', () {
+      final (evens, odds) = [1, 2, 3, 4, 5].partition((n) => n.isEven);
+      expect(evens, equals([2, 4]));
+      expect(odds, equals([1, 3, 5]));
+    });
+
+    test('all match gives empty second list', () {
+      final (matches, rest) = [2, 4, 6].partition((n) => n.isEven);
+      expect(matches, equals([2, 4, 6]));
+      expect(rest, isEmpty);
+    });
+
+    test('none match gives empty first list', () {
+      final (matches, rest) = [1, 3, 5].partition((n) => n.isEven);
+      expect(matches, isEmpty);
+      expect(rest, equals([1, 3, 5]));
+    });
+
+    test('empty iterable gives both empty', () {
+      final (matches, rest) = <int>[].partition((n) => n.isEven);
+      expect(matches, isEmpty);
+      expect(rest, isEmpty);
+    });
+  });
+
+  group('intersperse', () {
+    test('inserts separator between elements', () {
+      expect([1, 2, 3].intersperse(0).toList(), equals([1, 0, 2, 0, 3]));
+    });
+
+    test('single element has no separator', () {
+      expect([1].intersperse(0).toList(), equals([1]));
+    });
+
+    test('empty iterable stays empty', () {
+      expect(<int>[].intersperse(0).toList(), isEmpty);
+    });
+  });
+
+  group('sliding', () {
+    test('creates overlapping windows', () {
+      expect(
+        [1, 2, 3, 4].sliding(2).toList(),
+        equals([[1, 2], [2, 3], [3, 4]]),
+      );
+    });
+
+    test('with step', () {
+      expect(
+        [1, 2, 3, 4].sliding(2, step: 2).toList(),
+        equals([[1, 2], [3, 4]]),
+      );
+    });
+
+    test('size larger than list returns empty', () {
+      expect([1, 2].sliding(3).toList(), isEmpty);
+    });
+
+    test('throws on invalid size', () {
+      expect(() => [1, 2].sliding(0), throwsArgumentError);
+    });
+
+    test('throws on invalid step', () {
+      expect(() => [1, 2].sliding(1, step: 0), throwsArgumentError);
+    });
+  });
+
+  group('sumBy', () {
+    test('sums values by selector', () {
+      final items = [{'n': 1}, {'n': 2}, {'n': 3}];
+      expect(items.sumBy((e) => e['n'] as int), equals(6));
+    });
+
+    test('empty iterable returns 0', () {
+      expect(<int>[].sumBy((e) => e), equals(0));
+    });
+  });
+
+  group('averageBy', () {
+    test('computes average by selector', () {
+      expect([2, 4, 6].averageBy((e) => e), equals(4.0));
+    });
+
+    test('empty iterable throws StateError', () {
+      expect(() => <int>[].averageBy((e) => e), throwsStateError);
+    });
+  });
 }

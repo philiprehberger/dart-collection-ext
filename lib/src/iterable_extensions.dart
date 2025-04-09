@@ -127,4 +127,70 @@ extension IterableExt<T> on Iterable<T> {
     list.sort((a, b) => key(a).compareTo(key(b)));
     return list;
   }
+
+  /// Splits elements into two lists based on [predicate].
+  ///
+  /// Returns a record where the first list contains elements that match
+  /// the predicate and the second list contains elements that do not.
+  (List<T>, List<T>) partition(bool Function(T) predicate) {
+    final matches = <T>[];
+    final rest = <T>[];
+    for (final element in this) {
+      if (predicate(element)) {
+        matches.add(element);
+      } else {
+        rest.add(element);
+      }
+    }
+    return (matches, rest);
+  }
+
+  /// Returns a lazy iterable with [separator] inserted between each
+  /// pair of elements.
+  Iterable<T> intersperse(T separator) sync* {
+    var first = true;
+    for (final element in this) {
+      if (!first) yield separator;
+      yield element;
+      first = false;
+    }
+  }
+
+  /// Returns an iterable of overlapping windows of [size] elements,
+  /// advancing by [step] each time.
+  ///
+  /// Throws [ArgumentError] if [size] or [step] is less than 1.
+  Iterable<List<T>> sliding(int size, {int step = 1}) sync* {
+    if (size < 1) throw ArgumentError.value(size, 'size', 'must be at least 1');
+    if (step < 1) throw ArgumentError.value(step, 'step', 'must be at least 1');
+    final list = toList();
+    for (var i = 0; i + size <= list.length; i += step) {
+      yield list.sublist(i, i + size);
+    }
+  }
+
+  /// Returns the sum of values produced by [selector] for each element.
+  ///
+  /// Returns `0` for an empty iterable.
+  num sumBy(num Function(T) selector) {
+    num sum = 0;
+    for (final element in this) {
+      sum += selector(element);
+    }
+    return sum;
+  }
+
+  /// Returns the average of values produced by [selector] for each element.
+  ///
+  /// Throws [StateError] if the iterable is empty.
+  double averageBy(num Function(T) selector) {
+    if (isEmpty) throw StateError('Cannot compute average of empty iterable');
+    var sum = 0.0;
+    var count = 0;
+    for (final element in this) {
+      sum += selector(element);
+      count++;
+    }
+    return sum / count;
+  }
 }
