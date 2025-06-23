@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-05
+
+### Added
+- `frequencies()` to count occurrences of each element in an iterable
+- `associateBy()` to create a map from elements using a key selector function
+
 ## [0.2.0] - 2026-04-04
 
 ### Added

@@ -193,4 +193,34 @@ extension IterableExt<T> on Iterable<T> {
     }
     return sum / count;
   }
+
+  /// Counts occurrences of each element.
+  ///
+  /// ```dart
+  /// ['a', 'b', 'a', 'c', 'a'].frequencies()
+  /// // => {'a': 3, 'b': 1, 'c': 1}
+  /// ```
+  Map<T, int> frequencies() {
+    final map = <T, int>{};
+    for (final element in this) {
+      map[element] = (map[element] ?? 0) + 1;
+    }
+    return map;
+  }
+
+  /// Creates a map from elements using [keySelector] to produce keys.
+  ///
+  /// If multiple elements map to the same key, the last one wins.
+  ///
+  /// ```dart
+  /// ['apple', 'banana', 'cherry'].associateBy((s) => s[0])
+  /// // => {'a': 'apple', 'b': 'banana', 'c': 'cherry'}
+  /// ```
+  Map<K, T> associateBy<K>(K Function(T) keySelector) {
+    final map = <K, T>{};
+    for (final element in this) {
+      map[keySelector(element)] = element;
+    }
+    return map;
+  }
 }

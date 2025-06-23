@@ -4,7 +4,7 @@
 [![pub package](https://img.shields.io/pub/v/philiprehberger_collection_ext.svg)](https://pub.dev/packages/philiprehberger_collection_ext)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/dart-collection-ext)](https://github.com/philiprehberger/dart-collection-ext/commits/main)
 
-Iterable and Map extensions for groupBy, chunk, zip, partition, sliding, and more
+Iterable and Map extensions for groupBy, chunk, zip, partition, sliding, frequencies, and more
 
 ## Requirements
 
@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_collection_ext: ^0.2.0
+  philiprehberger_collection_ext: ^0.3.0
 ```
 
 Then run:
@@ -90,6 +90,20 @@ final total = [1, 2, 3].sumBy((n) => n);     // 6
 final avg = [2, 4, 6].averageBy((n) => n);    // 4.0
 ```
 
+### frequencies
+
+```dart
+final counts = ['a', 'b', 'a', 'c', 'a'].frequencies();
+// {a: 3, b: 1, c: 1}
+```
+
+### associateBy
+
+```dart
+final byInitial = ['apple', 'banana', 'cherry'].associateBy((s) => s[0]);
+// {a: apple, b: banana, c: cherry}
+```
+
 ### Map Extensions
 
 ```dart
@@ -123,6 +137,8 @@ final doubled = {'a': 1, 'b': 2}.mapValues((v) => v * 10);
 | `sliding(size, step)` | Overlapping windows of elements |
 | `sumBy(selector)` | Sum of values by a selector function |
 | `averageBy(selector)` | Average of values by a selector function |
+| `frequencies()` | Count occurrences of each element |
+| `associateBy(keySelector)` | Create a map from elements using a key selector |
 
 ### Map Extensions
 
