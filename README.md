@@ -8,7 +8,7 @@ Iterable and Map extensions for groupBy, chunk, zip, partition, sliding, frequen
 
 ## Requirements
 
-- Dart >= 3.6
+- Dart >= 3.8
 
 ## Installation
 
@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_collection_ext: ^0.3.0
+  philiprehberger_collection_ext: ^0.4.0
 ```
 
 Then run:
