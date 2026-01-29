@@ -1,13 +1,13 @@
 name: philiprehberger_collection_ext
 description: >-
   Iterable and Map extensions for groupBy, chunk, zip, partition, sliding, frequencies, and more
-version: 0.4.0
+version: 0.5.0
 homepage: https://philiprehberger.com/open-source-packages/dart/philiprehberger_collection_ext
 repository: https://github.com/philiprehberger/dart-collection-ext
 issue_tracker: https://github.com/philiprehberger/dart-collection-ext/issues
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.6.0
 
 dev_dependencies:
   test: ^1.25.0

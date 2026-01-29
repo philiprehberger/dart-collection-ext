@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-04-12
+
+### Added
+- `mapIndexed()` to transform elements with access to their index
+- `whereIndexed()` to filter elements with access to their index
+- `flatMap()` to map each element to an iterable and flatten the results
+- `none()` to check if no elements satisfy a predicate
+- `takeWhileInclusive()` like takeWhile but includes the first failing element
+
+### Changed
+- Reverted minimum Dart SDK from 3.8 back to 3.6 (no 3.8-specific APIs used)
+
 ## [0.4.0] - 2026-04-06
 
 ### Changed

@@ -153,4 +153,139 @@ void main() {
       expect(() => <int>[].averageBy((e) => e), throwsStateError);
     });
   });
+
+  group('frequencies', () {
+    test('counts occurrences', () {
+      expect(
+        ['a', 'b', 'a', 'c', 'a'].frequencies(),
+        equals({'a': 3, 'b': 1, 'c': 1}),
+      );
+    });
+
+    test('empty iterable returns empty map', () {
+      expect(<String>[].frequencies(), isEmpty);
+    });
+
+    test('single element', () {
+      expect([42].frequencies(), equals({42: 1}));
+    });
+  });
+
+  group('associateBy', () {
+    test('creates map from key selector', () {
+      final result = ['apple', 'banana', 'cherry'].associateBy((s) => s[0]);
+      expect(result, equals({'a': 'apple', 'b': 'banana', 'c': 'cherry'}));
+    });
+
+    test('last wins on duplicate keys', () {
+      final result = ['ant', 'ape', 'bat'].associateBy((s) => s[0]);
+      expect(result['a'], equals('ape'));
+      expect(result.length, equals(2));
+    });
+
+    test('empty iterable returns empty map', () {
+      expect(<String>[].associateBy((s) => s), isEmpty);
+    });
+  });
+
+  group('mapIndexed', () {
+    test('transforms with index', () {
+      expect(
+        ['a', 'b', 'c'].mapIndexed((i, e) => '$i:$e').toList(),
+        equals(['0:a', '1:b', '2:c']),
+      );
+    });
+
+    test('empty iterable yields nothing', () {
+      expect(<int>[].mapIndexed((i, e) => e).toList(), isEmpty);
+    });
+  });
+
+  group('whereIndexed', () {
+    test('filters by index', () {
+      expect(
+        [10, 20, 30, 40].whereIndexed((i, e) => i.isEven).toList(),
+        equals([10, 30]),
+      );
+    });
+
+    test('filters by element and index', () {
+      expect(
+        [1, 2, 3, 4, 5].whereIndexed((i, e) => i > 0 && e.isOdd).toList(),
+        equals([3, 5]),
+      );
+    });
+
+    test('empty iterable yields nothing', () {
+      expect(<int>[].whereIndexed((i, e) => true).toList(), isEmpty);
+    });
+  });
+
+  group('flatMap', () {
+    test('maps and flattens', () {
+      expect(
+        [[1, 2], [3, 4]].flatMap((e) => e).toList(),
+        equals([1, 2, 3, 4]),
+      );
+    });
+
+    test('works with transformation', () {
+      expect(
+        [1, 2, 3].flatMap((n) => [n, n * 10]).toList(),
+        equals([1, 10, 2, 20, 3, 30]),
+      );
+    });
+
+    test('empty inner iterables produce nothing', () {
+      expect(
+        [1, 2, 3].flatMap((n) => <int>[]).toList(),
+        isEmpty,
+      );
+    });
+
+    test('empty iterable yields nothing', () {
+      expect(<List<int>>[].flatMap((e) => e).toList(), isEmpty);
+    });
+  });
+
+  group('none', () {
+    test('returns true when no element matches', () {
+      expect([1, 3, 5].none((n) => n.isEven), isTrue);
+    });
+
+    test('returns false when any element matches', () {
+      expect([1, 2, 3].none((n) => n.isEven), isFalse);
+    });
+
+    test('returns true for empty iterable', () {
+      expect(<int>[].none((n) => true), isTrue);
+    });
+  });
+
+  group('takeWhileInclusive', () {
+    test('includes the first failing element', () {
+      expect(
+        [1, 2, 3, 4, 5].takeWhileInclusive((n) => n < 3).toList(),
+        equals([1, 2, 3]),
+      );
+    });
+
+    test('all pass returns all elements', () {
+      expect(
+        [1, 2, 3].takeWhileInclusive((n) => n < 10).toList(),
+        equals([1, 2, 3]),
+      );
+    });
+
+    test('first fails returns only first element', () {
+      expect(
+        [5, 1, 2].takeWhileInclusive((n) => n < 3).toList(),
+        equals([5]),
+      );
+    });
+
+    test('empty iterable yields nothing', () {
+      expect(<int>[].takeWhileInclusive((n) => true).toList(), isEmpty);
+    });
+  });
 }

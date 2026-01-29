@@ -223,4 +223,69 @@ extension IterableExt<T> on Iterable<T> {
     }
     return map;
   }
+
+  /// Transforms each element with access to its index.
+  ///
+  /// ```dart
+  /// ['a', 'b', 'c'].mapIndexed((i, e) => '$i:$e').toList()
+  /// // => ['0:a', '1:b', '2:c']
+  /// ```
+  Iterable<R> mapIndexed<R>(R Function(int index, T element) transform) sync* {
+    var index = 0;
+    for (final element in this) {
+      yield transform(index++, element);
+    }
+  }
+
+  /// Filters elements with access to their index.
+  ///
+  /// ```dart
+  /// [10, 20, 30, 40].whereIndexed((i, e) => i.isEven).toList()
+  /// // => [10, 30]
+  /// ```
+  Iterable<T> whereIndexed(bool Function(int index, T element) test) sync* {
+    var index = 0;
+    for (final element in this) {
+      if (test(index++, element)) {
+        yield element;
+      }
+    }
+  }
+
+  /// Maps each element to an iterable and flattens the results.
+  ///
+  /// ```dart
+  /// [[1, 2], [3, 4]].flatMap((e) => e).toList()
+  /// // => [1, 2, 3, 4]
+  /// ```
+  Iterable<R> flatMap<R>(Iterable<R> Function(T element) transform) sync* {
+    for (final element in this) {
+      yield* transform(element);
+    }
+  }
+
+  /// Returns `true` if no element satisfies [test].
+  ///
+  /// ```dart
+  /// [1, 3, 5].none((n) => n.isEven) // => true
+  /// ```
+  bool none(bool Function(T) test) {
+    for (final element in this) {
+      if (test(element)) return false;
+    }
+    return true;
+  }
+
+  /// Like [takeWhile], but includes the first element that fails [test].
+  ///
+  /// ```dart
+  /// [1, 2, 3, 4, 5].takeWhileInclusive((n) => n < 3).toList()
+  /// // => [1, 2, 3]
+  /// ```
+  Iterable<T> takeWhileInclusive(bool Function(T) test) sync* {
+    for (final element in this) {
+      yield element;
+      if (!test(element)) return;
+    }
+  }
 }
