@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_collection_ext: ^0.1.0
+  philiprehberger_collection_ext: ^0.1.1
 ```
 
 Then run:
