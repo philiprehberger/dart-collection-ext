@@ -4,7 +4,7 @@
 [![pub package](https://img.shields.io/pub/v/philiprehberger_collection_ext.svg)](https://pub.dev/packages/philiprehberger_collection_ext)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/dart-collection-ext)](https://github.com/philiprehberger/dart-collection-ext/commits/main)
 
-Iterable and Map extensions for groupBy, chunk, zip, distinct, and more
+Iterable and Map extensions for groupBy, chunk, zip, partition, sliding, and more
 
 ## Requirements
 
@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_collection_ext: ^0.1.1
+  philiprehberger_collection_ext: ^0.2.0
 ```
 
 Then run:
@@ -59,6 +59,37 @@ final unique = [1, 2, 3, 2, 1].distinctBy((n) => n).toList();
 // [1, 2, 3]
 ```
 
+### partition
+
+```dart
+final (evens, odds) = [1, 2, 3, 4, 5].partition((n) => n.isEven);
+// evens: [2, 4], odds: [1, 3, 5]
+```
+
+### intersperse
+
+```dart
+final result = [1, 2, 3].intersperse(0).toList();
+// [1, 0, 2, 0, 3]
+```
+
+### sliding
+
+```dart
+final windows = [1, 2, 3, 4].sliding(2).toList();
+// [[1, 2], [2, 3], [3, 4]]
+
+final stepped = [1, 2, 3, 4].sliding(2, step: 2).toList();
+// [[1, 2], [3, 4]]
+```
+
+### sumBy / averageBy
+
+```dart
+final total = [1, 2, 3].sumBy((n) => n);     // 6
+final avg = [2, 4, 6].averageBy((n) => n);    // 4.0
+```
+
 ### Map Extensions
 
 ```dart
@@ -67,6 +98,9 @@ final filtered = {'a': 1, 'b': 2, 'c': 3}.filterValues((v) => v > 1);
 
 final uppered = {'a': 1, 'b': 2}.mapKeys((k) => k.toUpperCase());
 // {A: 1, B: 2}
+
+final doubled = {'a': 1, 'b': 2}.mapValues((v) => v * 10);
+// {a: 10, b: 20}
 ```
 
 ## API
@@ -84,6 +118,11 @@ final uppered = {'a': 1, 'b': 2}.mapKeys((k) => k.toUpperCase());
 | `zip(other)` | Pair elements with another iterable |
 | `firstWhereOrNull(test)` | Safe lookup returning null instead of throwing |
 | `sortedBy(key)` | Return a sorted copy by a key function |
+| `partition(predicate)` | Split elements into matching and non-matching lists |
+| `intersperse(separator)` | Insert a separator between each pair of elements |
+| `sliding(size, step)` | Overlapping windows of elements |
+| `sumBy(selector)` | Sum of values by a selector function |
+| `averageBy(selector)` | Average of values by a selector function |
 
 ### Map Extensions
 
@@ -92,6 +131,7 @@ final uppered = {'a': 1, 'b': 2}.mapKeys((k) => k.toUpperCase());
 | `filterKeys(test)` | Filter entries by key predicate |
 | `filterValues(test)` | Filter entries by value predicate |
 | `mapKeys(transform)` | Transform keys while keeping values |
+| `mapValues(transform)` | Transform values while keeping keys |
 
 ## Development
 
