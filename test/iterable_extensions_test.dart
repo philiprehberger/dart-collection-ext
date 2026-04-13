@@ -288,4 +288,59 @@ void main() {
       expect(<int>[].takeWhileInclusive((n) => true).toList(), isEmpty);
     });
   });
+
+  group('scan', () {
+    test('produces running accumulator values', () {
+      expect(
+        [1, 2, 3, 4].scan(0, (acc, n) => acc + n).toList(),
+        equals([1, 3, 6, 10]),
+      );
+    });
+
+    test('empty iterable yields nothing', () {
+      expect(<int>[].scan(0, (acc, n) => acc + n).toList(), isEmpty);
+    });
+
+    test('single element produces one result', () {
+      expect([5].scan(0, (acc, n) => acc + n).toList(), equals([5]));
+    });
+
+    test('can change type', () {
+      expect(
+        ['a', 'b', 'c'].scan('', (acc, s) => '$acc$s').toList(),
+        equals(['a', 'ab', 'abc']),
+      );
+    });
+  });
+
+  group('chunkWhile', () {
+    test('groups consecutive equal elements', () {
+      expect(
+        [1, 1, 2, 2, 2, 3, 1, 1].chunkWhile((a, b) => a == b).toList(),
+        equals([[1, 1], [2, 2, 2], [3], [1, 1]]),
+      );
+    });
+
+    test('groups ascending runs', () {
+      expect(
+        [1, 2, 3, 1, 2, 1].chunkWhile((a, b) => b > a).toList(),
+        equals([[1, 2, 3], [1, 2], [1]]),
+      );
+    });
+
+    test('single element produces one chunk', () {
+      expect([42].chunkWhile((a, b) => true).toList(), equals([[42]]));
+    });
+
+    test('empty iterable yields nothing', () {
+      expect(<int>[].chunkWhile((a, b) => true).toList(), isEmpty);
+    });
+
+    test('all different produces single-element chunks', () {
+      expect(
+        [1, 2, 3].chunkWhile((a, b) => false).toList(),
+        equals([[1], [2], [3]]),
+      );
+    });
+  });
 }

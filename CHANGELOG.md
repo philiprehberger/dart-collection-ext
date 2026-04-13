@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-04-12
+
+### Added
+- `scan()` for running fold that emits each intermediate accumulator value
+- `chunkWhile()` to group consecutive elements while a predicate holds between adjacent pairs
+
+### Fixed
+- CI workflow now uses Dart SDK 3.6.0 matching the minimum supported version in pubspec.yaml
+
 ## [0.5.0] - 2026-04-12
 
 ### Added
