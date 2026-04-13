@@ -8,7 +8,7 @@ Iterable and Map extensions for groupBy, chunk, zip, partition, sliding, frequen
 
 ## Requirements
 
-- Dart >= 3.8
+- Dart >= 3.6
 
 ## Installation
 
@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_collection_ext: ^0.4.0
+  philiprehberger_collection_ext: ^0.5.0
 ```
 
 Then run:
@@ -104,6 +104,40 @@ final byInitial = ['apple', 'banana', 'cherry'].associateBy((s) => s[0]);
 // {a: apple, b: banana, c: cherry}
 ```
 
+### mapIndexed
+
+```dart
+final labeled = ['a', 'b', 'c'].mapIndexed((i, e) => '$i:$e').toList();
+// ['0:a', '1:b', '2:c']
+```
+
+### whereIndexed
+
+```dart
+final evens = [10, 20, 30, 40].whereIndexed((i, e) => i.isEven).toList();
+// [10, 30]
+```
+
+### flatMap
+
+```dart
+final flat = [[1, 2], [3, 4]].flatMap((e) => e).toList();
+// [1, 2, 3, 4]
+```
+
+### none
+
+```dart
+final allOdd = [1, 3, 5].none((n) => n.isEven); // true
+```
+
+### takeWhileInclusive
+
+```dart
+final items = [1, 2, 3, 4, 5].takeWhileInclusive((n) => n < 3).toList();
+// [1, 2, 3]
+```
+
 ### Map Extensions
 
 ```dart
@@ -139,6 +173,11 @@ final doubled = {'a': 1, 'b': 2}.mapValues((v) => v * 10);
 | `averageBy(selector)` | Average of values by a selector function |
 | `frequencies()` | Count occurrences of each element |
 | `associateBy(keySelector)` | Create a map from elements using a key selector |
+| `mapIndexed(transform)` | Transform elements with access to their index |
+| `whereIndexed(test)` | Filter elements with access to their index |
+| `flatMap(transform)` | Map each element to an iterable and flatten |
+| `none(test)` | Returns true if no element satisfies the predicate |
+| `takeWhileInclusive(test)` | Like takeWhile but includes the first failing element |
 
 ### Map Extensions
 
@@ -161,13 +200,19 @@ dart test
 
 If you find this project useful:
 
-- [Star the repo](https://github.com/philiprehberger/dart-collection-ext)
-- [Report issues](https://github.com/philiprehberger/dart-collection-ext/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
-- [Suggest features](https://github.com/philiprehberger/dart-collection-ext/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
-- [Sponsor development](https://github.com/sponsors/philiprehberger)
-- [All Open Source Projects](https://philiprehberger.com/open-source-packages)
-- [GitHub Profile](https://github.com/philiprehberger)
-- [LinkedIn Profile](https://www.linkedin.com/in/philiprehberger)
+⭐ [Star the repo](https://github.com/philiprehberger/dart-collection-ext)
+
+🐛 [Report issues](https://github.com/philiprehberger/dart-collection-ext/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
+
+💡 [Suggest features](https://github.com/philiprehberger/dart-collection-ext/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+
+❤️ [Sponsor development](https://github.com/sponsors/philiprehberger)
+
+🌐 [All Open Source Projects](https://philiprehberger.com/open-source-packages)
+
+💻 [GitHub Profile](https://github.com/philiprehberger)
+
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/philiprehberger)
 
 ## License
 
