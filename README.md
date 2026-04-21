@@ -16,7 +16,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  philiprehberger_collection_ext: ^0.5.0
+  philiprehberger_collection_ext: ^0.6.0
 ```
 
 Then run:
@@ -28,7 +28,7 @@ dart pub get
 ## Usage
 
 ```dart
-import 'package:philiprehberger_collection_ext/collection_ext.dart';
+import 'package:philiprehberger_collection_ext/philiprehberger_collection_ext.dart';
 ```
 
 ### groupBy
@@ -138,6 +138,20 @@ final items = [1, 2, 3, 4, 5].takeWhileInclusive((n) => n < 3).toList();
 // [1, 2, 3]
 ```
 
+### scan
+
+```dart
+final running = [1, 2, 3, 4].scan(0, (acc, n) => acc + n).toList();
+// [1, 3, 6, 10]
+```
+
+### chunkWhile
+
+```dart
+final runs = [1, 1, 2, 2, 2, 3, 1, 1].chunkWhile((a, b) => a == b).toList();
+// [[1, 1], [2, 2, 2], [3], [1, 1]]
+```
+
 ### Map Extensions
 
 ```dart
@@ -178,6 +192,8 @@ final doubled = {'a': 1, 'b': 2}.mapValues((v) => v * 10);
 | `flatMap(transform)` | Map each element to an iterable and flatten |
 | `none(test)` | Returns true if no element satisfies the predicate |
 | `takeWhileInclusive(test)` | Like takeWhile but includes the first failing element |
+| `scan(initial, combine)` | Running fold that emits each intermediate accumulator value |
+| `chunkWhile(test)` | Group consecutive elements while predicate holds between adjacent pairs |
 
 ### Map Extensions
 

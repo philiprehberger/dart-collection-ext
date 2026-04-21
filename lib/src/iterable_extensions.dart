@@ -288,4 +288,45 @@ extension IterableExt<T> on Iterable<T> {
       if (!test(element)) return;
     }
   }
+
+  /// Running fold that emits each intermediate accumulator value.
+  ///
+  /// Like [fold], but yields every intermediate result instead of only
+  /// the final one.
+  ///
+  /// ```dart
+  /// [1, 2, 3, 4].scan(0, (acc, n) => acc + n).toList()
+  /// // => [1, 3, 6, 10]
+  /// ```
+  Iterable<R> scan<R>(R initial, R Function(R accumulator, T element) combine) sync* {
+    var acc = initial;
+    for (final element in this) {
+      acc = combine(acc, element);
+      yield acc;
+    }
+  }
+
+  /// Groups consecutive elements while [test] returns `true` for
+  /// adjacent pairs.
+  ///
+  /// Complements [chunk] which splits by fixed size.
+  ///
+  /// ```dart
+  /// [1, 1, 2, 2, 2, 3, 1, 1].chunkWhile((a, b) => a == b).toList()
+  /// // => [[1, 1], [2, 2, 2], [3], [1, 1]]
+  /// ```
+  Iterable<List<T>> chunkWhile(bool Function(T previous, T current) test) sync* {
+    final iter = iterator;
+    if (!iter.moveNext()) return;
+    var chunk = [iter.current];
+    while (iter.moveNext()) {
+      if (test(chunk.last, iter.current)) {
+        chunk.add(iter.current);
+      } else {
+        yield chunk;
+        chunk = [iter.current];
+      }
+    }
+    yield chunk;
+  }
 }
